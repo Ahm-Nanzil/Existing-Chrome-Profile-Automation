@@ -10,15 +10,13 @@ profile_dir = "Profile 4"
 
 # Setup Chrome options
 options = Options()
+options.binary_location = r"C:\Users\ASUS\Downloads\chrome-win64\chrome-win64\chrome.exe"
 options.add_argument(f"--user-data-dir={user_data_dir}")
 options.add_argument(f"--profile-directory={profile_dir}")
 options.add_argument("--start-maximized")
-
-# Optional: avoid detection (basic)
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
 
-# Setup Chrome service (auto-detects ChromeDriver if in PATH)
 driver = webdriver.Chrome(options=options)
 
 # Go to a page to scrape
