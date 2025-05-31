@@ -1,22 +1,39 @@
-import undetected_chromedriver as uc
-from selenium.webdriver.common.by import By
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 import time
 
-options = uc.ChromeOptions()
-options.add_argument("user-data-dir=C:/Users/YourUser/AppData/Local/Google/Chrome/User Data")
-options.add_argument("profile-directory=Profile 1")  # Optional: your specific profile
+# Path to your Chrome user data and profile
+user_data_dir = r"C:\Users\ASUS\AppData\Local\Google\Chrome\User Data"
+profile_dir = "Profile 4"
 
-driver = uc.Chrome(options=options)
+
+# Setup Chrome options
+options = Options()
+options.add_argument(f"--user-data-dir={user_data_dir}")
+options.add_argument(f"--profile-directory={profile_dir}")
+options.add_argument("--start-maximized")
+
+# Optional: avoid detection (basic)
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option('useAutomationExtension', False)
+
+# Setup Chrome service (auto-detects ChromeDriver if in PATH)
+driver = webdriver.Chrome(options=options)
+
+# Go to a page to scrape
 driver.get("https://example.com")
 
-time.sleep(3)
+# Wait for page to load
+time.sleep(2)
 
-# Example scraping:
-title = driver.title
-print("Page Title:", title)
+# Simple scraping (e.g., get page title)
+print("Page Title:", driver.title)
 
-# Find some element (example)
-element = driver.find_element(By.XPATH, "//h1")
-print("Main Header:", element.text)
+# Optional: scrape an element
+element = driver.find_element("tag name", "h1")
+print("H1 Text:", element.text)
 
+# Keep browser open for debugging
+time.sleep(10)
 driver.quit()
