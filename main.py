@@ -22,7 +22,7 @@ def search_and_save():
 
     try:
         # Search query
-        search_query = 'site:instagram.com "Football Coach" "@gmail.com"'
+        search_query = 'site:instagram.com "fitness Coach" "@gmail.com"'
         google_url = f"https://www.google.com/search?q={search_query}"
 
         driver.get(google_url)
